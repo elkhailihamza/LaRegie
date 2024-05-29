@@ -6,22 +6,27 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $request->validate([
-            "email" => "required|email",
-            "mot_de_pass" => "required",
-        ]);
-        $credentials = $request->only('email', 'password');
+        try {
+            $request->validate([
+                "email" => "required|email",
+                "mot_de_pass" => "required",
+            ]);
+            $credentials = $request->only('email', 'mot_de_pass');
 
-        if (!Auth::attempt($credentials)) {
-            return redirect()->back()->withInput()->withErrors("Wrong credentials!");
+            if (!Auth::attempt($credentials)) {
+                return redirect()->back()->withInput()->withErrors(["credentials" => "Wrong credentials!"]);
+            }
+
+            return redirect()->intended("user.dashboard")->withSuccess("Successfully Logged in!");
+        } catch (ValidationException $e) {
+            return redirect()->back()->withInput()->withErrors($e->errors());
         }
-
-        return redirect()->route("user.dashboard")->withSuccess("Successfully Logged in!");
     }
     public function register(Request $request)
     {
