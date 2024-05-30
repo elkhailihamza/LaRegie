@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'loginPage'])->name("loginPage");
 Route::post('/login', [AuthController::class, 'login'])->name("login");
+
+Route::get('/home', [HomeController::class, 'homePage'])->name("index");
+Route::get('/groups', [GroupController::class, 'groupsPage'])->name("groups");
 
 Route::middleware("auth")->group(function () {
     
