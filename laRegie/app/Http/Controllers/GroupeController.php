@@ -11,19 +11,21 @@ class GroupeController extends Controller
 {
     public function groupePage()
     {
-        $groups = Groupe::paginate(6);
-        return view('groupes')->with('groups', $groups);
+        $groupes = Groupe::join('metiers', 'groupes.metier_id', '=', 'metiers.id')
+            ->select('groupes.*', 'metiers.*')
+            ->paginate(4);
+        return view('groupes')->with(['groupes' => $groupes]);
     }
     public function groupeCreationPage()
     {
         $metiers = Metier::get();
-        return view('groupeCreation')->with('metiers', $metiers);
+        return view('groupeCreation', compact('metiers'));
     }
     public function create(Request $request)
     {
         try {
             $request->validate([
-                'groupe_nom' => 'required|max:255',
+                'groupe_nom' => 'required|max:255|unique:groupes,groupe_nom',
                 'metier' => 'required|numeric|in:1,2,3'
             ]);
             Groupe::create([
