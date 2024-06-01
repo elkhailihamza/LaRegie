@@ -8,14 +8,16 @@
 </div>
 <ul>
     @if ($groupes->isEmpty())
-    <li>Empty</li>
+    <li class="text-center text-slate-300 font-medium text-2xl">Empty</li>
     @else
     <div class="flex flex-col justify-between py-4 px-20 gap-2">
         @foreach ($groupes as $groupe)
-        <div class="py-2 px-1 border-2 rounded">
+        <div class="p-2 border-2 rounded">
             <h1 class="text-slate-400">{{ucfirst($groupe->metier_nom)}}</h1>
-            <h1 class="">{{$groupe->groupe_nom}}</h1>
-            <h1 class="text-slate-600">{{$groupe->created_at->diffForHumans()}}</h1>
+            <div class="px-2">
+                <h1>{{$groupe->groupe_nom}}</h1>
+                <h1 class="text-slate-600">{{$groupe->created_at->diffForHumans()}}</h1>
+            </div>
         </div>
         @endforeach
         <div class="flex justify-end">
