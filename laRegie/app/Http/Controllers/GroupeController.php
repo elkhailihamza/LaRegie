@@ -12,7 +12,7 @@ class GroupeController extends Controller
     public function groupePage()
     {
         $groupes = Groupe::paginate(4);
-        return view('groupes')->with(['groupes' => $groupes]);
+        return view('groupes', compact('groupes'));
     }
     public function groupeCreationPage()
     {

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('familles', function (Blueprint $table) {
             $table->id();
             $table->string("famille_nom");
-            $table->foreignId("group_id")->constrained("groupes");
+            $table->foreignId("groupe_id")->constrained("groupes");
             $table->timestamps();
         });
     }

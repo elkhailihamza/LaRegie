@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\GroupeController;
@@ -27,6 +28,10 @@ Route::post('/groupes/submit', [GroupeController::class, 'create'])->name("group
 Route::get('/familles', [FamilleController::class, 'FamillePage'])->name("familles");
 Route::get('/familles/create', [FamilleController::class, 'FamilleCreationPage'])->name("familleCreate");
 Route::post('/familles/submit', [FamilleController::class, 'create'])->name("familleSubmit");
+Route::get('/articles', [ArticleController::class, 'ArticlePage'])->name("articles");
+Route::get('/articles/create', [ArticleController::class, 'ArticleCreationPage'])->name("articleCreate");
+Route::get('/articles/submit', [ArticleController::class, 'create'])->name("articleSubmit");
+
 
 Route::middleware("auth")->group(function () {
     

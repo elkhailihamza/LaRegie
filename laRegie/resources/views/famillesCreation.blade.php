@@ -4,14 +4,14 @@
 
 <div class="px-20 py-10 select-none">
     <h2 class="text-slate-300">Famille Creation</h2>
-    <h1 class="text-2xl">Créer un Famille</h1>
+    <h1 class="text-2xl">Créer une Famille</h1>
 </div>
 <div class="px-20 py-12">
     <form class="grid gap-32 w-full flex justify-center" method="post" action="{{route('familleSubmit')}}">
         @csrf
         @method('post')
-        <div class="grid gap-4  w-96">
-            <input name="famille_nom" autocomplete="off" type="text" max="255" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" name="nom" id="" placeholder="Famille Nom">
+        <div class="grid gap-4 w-96">
+            <input name="famille_nom" autocomplete="off" type="text" max="255" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Famille Nom">
             <select name="groupe" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded">
                 <option selected hidden disabled>Select Groupe</option>
                 @foreach ($groupes as $groupe)

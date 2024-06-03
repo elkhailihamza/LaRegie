@@ -10,8 +10,8 @@
     <form class="grid gap-32 w-full flex justify-center" method="post" action="{{route('groupeSubmit')}}">
         @csrf
         @method('post')
-        <div class="grid gap-4  w-96">
-            <input name="groupe_nom" autocomplete="off" type="text" max="255" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" name="nom" id="" placeholder="Group Nom">
+        <div class="grid gap-4 w-96">
+            <input name="groupe_nom" autocomplete="off" type="text" max="255" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Group Nom">
             <select name="metier" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded">
                 <option selected hidden disabled>Select Métier</option>
                 @foreach ($metiers as $metier)

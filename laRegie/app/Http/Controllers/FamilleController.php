@@ -9,11 +9,13 @@ use Illuminate\Validation\ValidationException;
 
 class FamilleController extends Controller
 {
-    public function FamillePage() {
-        $familles = Famille::join('groupes', 'familles.group_id', '=', 'groupes.id')->paginate(4);
+    public function FamillePage()
+    {
+        $familles = Famille::paginate(4);
         return view('familles', compact('familles'));
     }
-    public function FamilleCreationPage() {
+    public function FamilleCreationPage()
+    {
         $groupes = Groupe::select('id', 'groupe_nom')->get();
         return view('famillesCreation', compact('groupes'));
     }
