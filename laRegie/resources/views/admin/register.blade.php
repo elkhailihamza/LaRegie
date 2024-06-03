@@ -37,11 +37,11 @@
             </div>
             <div class="w-full">
                 <div class="flex gap-4">
-                    <input type="password" name="mot_de_pass" autocomplete="off" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Password">
-                    <input type="password" name="mot_de_pass_confirmation" autocomplete="off" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Password Confirmation">
+                    <input type="password" name="password" autocomplete="off" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Password">
+                    <input type="password" name="password_confirmation" autocomplete="off" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Password Confirmation">
                 </div>
-                @if ($errors->has('mot_de_pass'))
-                <span class="block bg-red-600 text-sm w-full p-1 text-white">{{ $errors->first('mot_de_pass') }}</span>
+                @if ($errors->has('password'))
+                <span class="block bg-red-600 text-sm w-full p-1 text-white">{{ $errors->first('password') }}</span>
                 @endif
             </div>
             <div class="w-full">

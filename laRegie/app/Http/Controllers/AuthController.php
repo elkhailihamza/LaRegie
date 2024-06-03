@@ -16,15 +16,16 @@ class AuthController extends Controller
         try {
             $request->validate([
                 "email" => "required|email",
-                "mot_de_pass" => "required",
+                "password" => "required",
             ]);
-            $credentials = $request->only('email', 'mot_de_pass');
+            $credentials = $request->only('email', 'password');
 
-            if (!Auth::attempt($credentials)) {
-                return redirect()->back()->withInput()->withErrors(["credentials" => "Wrong credentials!"]);
+            if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+                $request->session()->regenerate();
+                return redirect()->intended('/');
             }
 
-            return redirect()->intended("home")->withSuccess("Successfully Logged in!");
+            return redirect()->back()->withInput()->withErrors(["credentials" => "Wrong credentials!"]);
         } catch (ValidationException $e) {
             return redirect()->back()->withInput()->withErrors($e->errors());
         }
@@ -36,7 +37,7 @@ class AuthController extends Controller
                 "nom" => "required|max:126",
                 "prenom" => "required|max:126",
                 "email" => "required|unique:users,email|email",
-                "mot_de_pass" => "required|confirmed|min:8",
+                "password" => "required|confirmed|min:8",
                 "metier" => "required|in:1,2,3",
             ]);
 
@@ -44,7 +45,7 @@ class AuthController extends Controller
                 "nom" => $request->input("nom"),
                 "prenom" => $request->input("prenom"),
                 "email" => $request->input("email"),
-                "mot_de_pass" => Hash::make($request->input("mot_de_pass")),
+                "password" => Hash::make($request->input("password")),
                 'metier_id' => $request->input("metier"),
                 'profile_id' => 1,
             ]);
