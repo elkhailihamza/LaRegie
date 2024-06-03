@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Famille extends Model
 {
     use HasFactory;
+    public function groupe() {
+        return $this->hasOne(Groupe::class);
+    }
+    public function articles() {
+        return $this->belongsToMany(Article::class, 'segments');
+    }
     protected $fillable = [
         'famille_nom',
         'group_id'
