@@ -7,7 +7,7 @@
         <h2 class="text-slate-300">Familles</h2>
         <span class="font-medium text-xl">Found: {{$familles->count()}}</span>
     </div>
-    <a href="{{route("familleCreate")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Create</a>
+    v
 </div>
 <ul>
     @if ($familles->isEmpty())

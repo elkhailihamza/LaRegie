@@ -22,7 +22,7 @@ class AuthController extends Controller
 
             if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
                 $request->session()->regenerate();
-                return redirect()->intended('/');
+                return redirect()->route('index');
             }
 
             return redirect()->back()->withInput()->withErrors(["credentials" => "Wrong credentials!"]);
@@ -54,6 +54,12 @@ class AuthController extends Controller
         } catch (ValidationException $e) {
             return redirect()->back()->withInput()->withErrors($e->errors());
         }
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        return redirect()->route('login');
     }
     public function loginPage()
     {

@@ -7,7 +7,9 @@
         <h2 class="text-slate-300">Groupes</h2>
         <span class="font-medium text-xl">Found: {{$groupes->total()}}</span>
     </div>
+    @if(Auth::user()->profile_id != 1)
     <a href="{{route("groupeCreate")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Create</a>
+    @endif
 </div>
 <ul>
     @if ($groupes->isEmpty())

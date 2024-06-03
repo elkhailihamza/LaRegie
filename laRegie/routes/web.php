@@ -18,33 +18,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [AuthController::class, 'loginPage'])->name("loginPage");
-Route::post('/login/submit', [AuthController::class, 'login'])->name("login");
+Route::get('/login', [AuthController::class, 'loginPage'])->name("login");
+Route::post('/login/submit', [AuthController::class, 'login'])->name("loginSubmit");
 
 Route::middleware("auth")->group(function () {
-    Route::controller(HomeController::class)->group(function () {
-        Route::get('/', 'homePage')->name("index");
-        Route::get('/home', 'homePage')->name("index");
-        Route::get('/users', 'UsersPage')->name("users");
-    });
+    Route::get('/home', [HomeController::class, 'homePage'])->name("index");
     Route::controller(GroupeController::class)->group(function () {
         Route::get('/groupes', 'groupePage')->name("groupes");
         Route::get('/groupes/create', 'groupeCreationPage')->name("groupeCreate");
-        Route::post('/groupes/submit', 'create')->name("groupeSubmit");
     });
     Route::controller(FamilleController::class)->group(function () {
         Route::get('/familles', 'FamillePage')->name("familles");
         Route::get('/familles/create', 'FamilleCreationPage')->name("familleCreate");
-        Route::post('/familles/submit', 'create')->name("familleSubmit");
     });
     Route::controller(ArticleController::class)->group(function () {
         Route::get('/articles', 'ArticlePage')->name("articles");
         Route::get('/articles/create', 'ArticleCreationPage')->name("articleCreate");
-        Route::get('/articles/submit', 'create')->name("articleSubmit");
     });
-
-    Route::controller(AuthController::class)->group(function () {
-        Route::get('/users/create', 'registerPage')->name("registerPage");
-        Route::post('/users/submit', 'register')->name("register");
+    Route::middleware('admin')->group(function () {
+        Route::get('/admin/users', [HomeController::class, 'UsersPage'])->name("users");
+        Route::post('/groupes/submit', [GroupeController::class, 'create'])->name("groupeSubmit");
+        Route::post('/familles/submit', [FamilleController::class, 'create'])->name("familleSubmit");
+        Route::get('/articles/submit', [ArticleController::class, 'create'])->name("articleSubmit");
+        Route::controller(AuthController::class)->group(function () {
+            Route::get('/admin/users/create', 'registerPage')->name("registerPage");
+            Route::post('/admin/users/submit', 'register')->name("register");
+        });
     });
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
