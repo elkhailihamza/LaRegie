@@ -35,10 +35,12 @@ Route::middleware("auth")->group(function () {
         Route::get('/articles', 'ArticlePage')->name("articles");
         Route::get('/articles/create', 'ArticleCreationPage')->name("articleCreate");
     });
-    Route::middleware('admin')->group(function () {
+    Route::middleware('higher')->group(function () {
         Route::get('/admin/users', [HomeController::class, 'UsersPage'])->name("users");
         Route::post('/groupes/submit', [GroupeController::class, 'create'])->name("groupeSubmit");
         Route::post('/familles/submit', [FamilleController::class, 'create'])->name("familleSubmit");
+    });
+    Route::middleware('admin')->group(function () {
         Route::get('/articles/submit', [ArticleController::class, 'create'])->name("articleSubmit");
         Route::controller(AuthController::class)->group(function () {
             Route::get('/admin/users/create', 'registerPage')->name("registerPage");
