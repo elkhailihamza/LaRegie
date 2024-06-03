@@ -3,7 +3,7 @@
 @section('content')
 
 <main class="flex justify-center items-center">
-  <div class="w-80 rounded-md shadow-sm border-2 border-gray-200 bg-white">
+  <div class="w-96 rounded-md shadow-sm border-2 border-gray-200 bg-white">
     <h1 class="p-5 font-medium text-xl border-b text-center">Login</h1>
     <form action="{{route("login")}}" method="post" class="grid gap-4 px-4 py-6">
       @csrf

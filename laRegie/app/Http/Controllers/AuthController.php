@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Metier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,28 +24,35 @@ class AuthController extends Controller
                 return redirect()->back()->withInput()->withErrors(["credentials" => "Wrong credentials!"]);
             }
 
-            return redirect()->intended("user.dashboard")->withSuccess("Successfully Logged in!");
+            return redirect()->intended("home")->withSuccess("Successfully Logged in!");
         } catch (ValidationException $e) {
             return redirect()->back()->withInput()->withErrors($e->errors());
         }
     }
     public function register(Request $request)
     {
-        $request->validate([
-            "nom" => "required|max:126",
-            "prenom" => "required|max:126",
-            "email" => "required|email",
-            "mot_de_pass" => "required|confirmed|min:8",
-        ]);
+        try {
+            $request->validate([
+                "nom" => "required|max:126",
+                "prenom" => "required|max:126",
+                "email" => "required|unique:users,email|email",
+                "mot_de_pass" => "required|confirmed|min:8",
+                "metier" => "required|in:1,2,3",
+            ]);
 
-        User::create([
-            "nom" => $request->input("nom"),
-            "prenom" => $request->input("prenom"),
-            "email" => $request->input("email"),
-            "mot_de_pass" => Hash::make($request->input("mot_de_pass")),
-        ]);
+            User::create([
+                "nom" => $request->input("nom"),
+                "prenom" => $request->input("prenom"),
+                "email" => $request->input("email"),
+                "mot_de_pass" => Hash::make($request->input("mot_de_pass")),
+                'metier_id' => $request->input("metier"),
+                'profile_id' => 1,
+            ]);
 
-        return redirect()->route('user.dashboard')->withSuccess('Successfully created account!');
+            return redirect()->route('users')->withSuccess('Successfully created account!');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withInput()->withErrors($e->errors());
+        }
     }
     public function loginPage()
     {
@@ -52,6 +60,7 @@ class AuthController extends Controller
     }
     public function registerPage()
     {
-        return view("register");
+        $metiers = Metier::get();
+        return view("admin.register", compact('metiers'));
     }
 }

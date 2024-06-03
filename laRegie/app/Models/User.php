@@ -21,13 +21,15 @@ class User extends Authenticatable
         'nom',
         'prenom',
         'email',
-        'password',
+        'mot_de_pass',
+        'metier_id',
+        'profile_id',
     ];
     public function profile() {
-        return $this->hasOne(Profile::class);
+        return $this->belongsTo(Profile::class);
     }
     public function metier() {
-        return $this->hasOne(Metier::class);
+        return $this->belongsTo(Metier::class);
     }
 
     /**
