@@ -11,9 +11,7 @@ class GroupeController extends Controller
 {
     public function groupePage()
     {
-        $groupes = Groupe::join('metiers', 'groupes.metier_id', '=', 'metiers.id')
-            ->select('groupes.*', 'metiers.*')
-            ->paginate(4);
+        $groupes = Groupe::paginate(4);
         return view('groupes')->with(['groupes' => $groupes]);
     }
     public function groupeCreationPage()
