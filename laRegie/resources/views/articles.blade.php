@@ -4,7 +4,13 @@
 
 <div class="flex justify-between items-center px-12 py-4">
     <div>
-        <h2 class="text-slate-300">Articles</h2>
+        <div class="flex items-center gap-2 select-none">
+            <svg class="flex-shrink-0 w-5 h-5 stroke stroke-slate-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <h2 class="text-slate-400">Articles</h2>
+        </div>
         <span class="font-medium text-xl">Found: {{$articles->total()}}</span>
     </div>
     @if(Auth::user()->profile_id != 1)

@@ -4,7 +4,12 @@
 
 <div class="flex justify-between items-center px-12 py-4">
     <div>
-        <h2 class="text-slate-300">Groupes</h2>
+        <div class="flex gap-2 items-center">
+            <svg class="flex-shrink-0 w-5 h-5 stroke stroke-slate-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3h18v18H3zM21 9H3M21 15H3M12 3v18" />
+            </svg>
+            <h2 class="text-slate-400">Groupes</h2>
+        </div>
         <span class="font-medium text-xl">Found: {{$groupes->total()}}</span>
     </div>
     @if(Auth::user()->profile_id != 1)
