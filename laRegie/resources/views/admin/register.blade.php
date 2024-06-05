@@ -9,7 +9,7 @@
 
 <main class="flex flex-col gap-4 justify-center items-center">
     <div class="w-[500px]">
-        <form action="{{route("register")}}" method="post" class="grid gap-4 px-4 py-6">
+        <form action="{{route("users.submit")}}" method="post" class="grid gap-4 px-4 py-6">
             @csrf
             @method("POST")
             @if ($errors->has('credentials'))

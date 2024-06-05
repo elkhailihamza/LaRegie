@@ -7,7 +7,7 @@
         <h2 class="text-slate-300">Utilisateurs</h2>
         <span class="font-medium text-xl">Found: {{$users->total()}}</span>
     </div>
-    <a href="{{route("registerPage")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">
+    <a href="{{route("users.create")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">
         Enregistrer un nouvel utilisateur</a>
 </div>
 <ul>
@@ -44,7 +44,6 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
-                    @if ($user->id != Auth::user()->id)
                     <tr class="bg-white border-b hover:bg-gray-100 transition-all">
                         <td class="px-6 py-4">
                             {{$user->prenom}}
@@ -64,6 +63,7 @@
                         <td class="px-6 py-4">
                             {{$user->created_at->diffForHumans()}}
                         </td>
+                        @if ($user->id != Auth::user()->id)
                         <td class="px-6 py-4 flex justify-around">
                             <a href="{{route('users.edit', $user->id)}}" class="bg-green-600 p-[5px] rounded-md">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,8 +81,12 @@
                                     </svg></button>
                             </form>
                         </td>
+                        @else
+                        <td class="px-6 py-4">
+                            <h2>Not Available</h2>
+                        </td>
+                        @endif
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>

@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-    public function familles()
+
+    protected $fillable = [
+        'article_nom',
+        'description',
+        'segment_id',
+    ];
+    public function segment()
     {
-        return $this->belongsToMany(Famille::class, 'segments');
+        return $this->belongsTo(segment::class);
     }
 }

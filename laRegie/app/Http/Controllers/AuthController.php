@@ -31,32 +31,7 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->withErrors($e->errors());
         }
     }
-    public function register(Request $request)
-    {
-        try {
-            $request->validate([
-                "nom" => "required|max:126",
-                "prenom" => "required|max:126",
-                "email" => "required|unique:users,email|email",
-                "password" => "required|confirmed|min:8",
-                "profile" => "required|exists:profiles,id",
-                "metier" => "required|exists:metiers,id",
-            ]);
-
-            User::create([
-                "nom" => $request->input("nom"),
-                "prenom" => $request->input("prenom"),
-                "email" => $request->input("email"),
-                "password" => Hash::make($request->input("password")),
-                'profile_id' => $request->input("profile"),
-                'metier_id' => $request->input("metier"),
-            ]);
-
-            return redirect()->route('admin.index')->withSuccess('Successfully created account!');
-        } catch (ValidationException $e) {
-            return redirect()->back()->withInput()->withErrors($e->errors());
-        }
-    }
+   
     public function logout(Request $request)
     {
         Auth::logout();
@@ -65,11 +40,5 @@ class AuthController extends Controller
     public function loginPage()
     {
         return view("auth.login");
-    }
-    public function registerPage()
-    {
-        $metiers = Metier::get();
-        $profiles = Profile::get();
-        return view("admin.register", compact('metiers', 'profiles'));
     }
 }

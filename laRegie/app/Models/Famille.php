@@ -12,12 +12,12 @@ class Famille extends Model
     {
         return $this->belongsTo(Groupe::class);
     }
-    public function articles()
+    public function segment()
     {
-        return $this->belongsToMany(Article::class, 'segments');
+        return $this->hasOne(segment::class);
     }
     protected $fillable = [
         'famille_nom',
-        'groupe_id'
+        'groupe_id',        
     ];
 }

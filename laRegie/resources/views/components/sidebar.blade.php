@@ -10,7 +10,7 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Home</span>
                 </a>
             </li>
-            @if (Auth::user()->profile_id == 3)
+            @if (Auth::user() && Auth::user()->profile_id == 3)
             <li>
                 <a href="{{route('users.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

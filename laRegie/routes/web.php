@@ -53,13 +53,11 @@ Route::middleware("auth")->group(function () {
     Route::middleware('admin')->group(function () {
         Route::controller(UserController::class)->group(function () {
             Route::get('/admin/users', 'index')->name("users.index");
+            Route::get('/admin/users/create', 'create')->name("users.create");
+            Route::post('/admin/users/submit', 'submit')->name("users.submit");
             Route::get('/admin/users/{user}/edit', 'edit')->name("users.edit");
             Route::put('/admin/users/{user}/update', 'update')->name("users.update");
             Route::delete('/admin/users/{user}', 'destroy')->name("users.destroy");
-        });
-        Route::controller(AuthController::class)->group(function () {
-            Route::get('/admin/users/create', 'registerPage')->name("registerPage");
-            Route::post('/admin/users/submit', 'register')->name("register");
         });
     });
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
