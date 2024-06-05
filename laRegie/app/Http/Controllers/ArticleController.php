@@ -12,25 +12,25 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::paginate(4);
-        return view('Articles', compact('articles'));
+        return view('articles', compact('articles'));
     }
     public function create()
     {
-        $familles = Famille::select('id', 'famille_nom')->get();
-        return view('articlesCreation', compact('familles'));
+        $familles = Famille::get();
+        return view('operateur.articles.create', compact('familles'));
     }
     public function submit(Request $request)
     {
         try {
             $request->validate([
-                'Article_nom' => 'required|max:255|unique:groupes,groupe_nom',
-                'groupe' => 'required|numeric|in:1,2,3'
+                'article_nom' => 'required|max:255|unique:groupes,groupe_nom',
+                'famille' => 'required|numeric'
             ]);
             Article::create([
-                'Article_nom' => $request->input('Article_nom'),
-                'group_id' => $request->input('groupe'),
+                'Article_nom' => $request->input('article_nom'),
+                'famille_id' => $request->input('famille'),
             ]);
-            return redirect(route('Articles'));
+            return redirect()->route('articles.index');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors());
         }

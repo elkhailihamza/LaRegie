@@ -13,7 +13,7 @@
         <div class="grid gap-4 w-96">
             <input name="famille_nom" value="{{$famille->famille_nom}}" autocomplete="off" type="text" max="255" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Famille Nom">
             <select name="groupe" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded">
-                <option value="{{$famille->groupe_id}}" selected hidden disabled>{{$famille->groupe_id .'. '. ucfirst($famille->groupe->groupe_nom)}}</option>
+                <option value="{{$famille->groupe_id}}" selected hidden>{{$famille->groupe_id .'. '. ucfirst($famille->groupe->groupe_nom)}}</option>
                 @foreach ($groupes as $groupe)
                 <option value="{{$groupe->id}}">{{$groupe->id .'. '. ucfirst($groupe->groupe_nom)}}</option>
                 @endforeach

@@ -15,7 +15,7 @@
             <select name="metier" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded">
                 <option selected hidden disabled>Select Métier</option>
                 @foreach ($metiers as $metier)
-                <option value="{{$metier->id}}">{{ucfirst($metier->metier_nom)}}</option>
+                <option value="{{$metier->id}}">{{$metier->id.'. '.ucfirst($metier->metier_nom)}}</option>
                 @endforeach
             </select>
             @if ($errors->has('groupe_nom') || $errors->has('metier'))

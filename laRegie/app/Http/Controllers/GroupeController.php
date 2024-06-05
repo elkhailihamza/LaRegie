@@ -23,8 +23,8 @@ class GroupeController extends Controller
     {
         try {
             $request->validate([
-                'groupe_nom' => 'required|max:255|unique:groupes,groupe_nom',
-                'metier' => 'required|numeric|in:1,2,3'
+                'groupe_nom' => 'required|max:255',
+                'metier' => 'required|numeric'
             ]);
             Groupe::create([
                 'groupe_nom' => $request->input('groupe_nom'),
@@ -35,7 +35,31 @@ class GroupeController extends Controller
             return redirect()->back()->withErrors($e->errors());
         }
     }
-    public function edit(Groupe $groupe) {
-        return view('');
+    public function edit(Groupe $groupe)
+    {
+        $metiers = Metier::get();
+        return view('operateur.groupes.edit', compact('groupe', 'metiers'));
+    }
+    public function update(Request $request, Groupe $groupe)
+    {
+        try {
+            $request->validate([
+                'groupe_nom' => 'max:255',
+                'metier' => 'numeric',
+            ]);
+
+            $groupe->update([
+                'groupe_nom' => $request->input('groupe_nom'),
+                'metier_id' => $request->input('metier'),
+            ]);
+
+            return redirect()->route('groupes');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withInput()->withErrors($e->errors());
+        }
+    }
+    public function destroy(Groupe $groupe) {
+        $groupe->delete();
+        return redirect()->route('groupes');
     }
 }
