@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Metier;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,8 @@ class AuthController extends Controller
                 "prenom" => "required|max:126",
                 "email" => "required|unique:users,email|email",
                 "password" => "required|confirmed|min:8",
-                "metier" => "required|in:1,2,3",
+                "profile" => "required|exists:profiles,id",
+                "metier" => "required|exists:metiers,id",
             ]);
 
             User::create([
@@ -46,11 +48,11 @@ class AuthController extends Controller
                 "prenom" => $request->input("prenom"),
                 "email" => $request->input("email"),
                 "password" => Hash::make($request->input("password")),
+                'profile_id' => $request->input("profile"),
                 'metier_id' => $request->input("metier"),
-                'profile_id' => 1,
             ]);
 
-            return redirect()->route('users')->withSuccess('Successfully created account!');
+            return redirect()->route('admin.index')->withSuccess('Successfully created account!');
         } catch (ValidationException $e) {
             return redirect()->back()->withInput()->withErrors($e->errors());
         }
@@ -58,7 +60,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         return redirect()->route('login');
     }
     public function loginPage()
@@ -68,6 +69,7 @@ class AuthController extends Controller
     public function registerPage()
     {
         $metiers = Metier::get();
-        return view("admin.register", compact('metiers'));
+        $profiles = Profile::get();
+        return view("admin.register", compact('metiers', 'profiles'));
     }
 }

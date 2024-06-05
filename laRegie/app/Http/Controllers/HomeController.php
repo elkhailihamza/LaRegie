@@ -10,9 +10,4 @@ class HomeController extends Controller
     {
         return view('index');
     }
-    public function usersPage()
-    {
-        $users = User::paginate(4);
-        return view('admin.users', compact('users'));
-    }
 }
