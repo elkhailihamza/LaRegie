@@ -24,15 +24,42 @@ class FamilleController extends Controller
         try {
             $request->validate([
                 'famille_nom' => 'required|max:255|unique:groupes,groupe_nom',
-                'groupe' => 'required|numeric|in:1,2,3'
+                'groupe' => 'required|numeric'
             ]);
             Famille::create([
                 'famille_nom' => $request->input('famille_nom'),
-                'group_id' => $request->input('groupe'),
+                'groupe_id' => $request->input('groupe'),
             ]);
             return redirect(route('familles'));
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors());
         }
+    }
+    public function edit(Famille $famille)
+    {
+        $groupes = Groupe::get();
+        return view('operateur.familles.edit', compact('famille', 'groupes'));
+    }
+    public function update(Request $request, Famille $famille)
+    {
+        try {
+            $request->validate([
+                'famille_nom' => 'max:255|unique:groupes,groupe_nom',
+                'groupe' => 'numeric'
+            ]);
+
+            $famille->update([
+                'famille_nom' => $request->input('famille_nom'),
+                'groupe_id' => $request->input('groupe'),
+            ]);
+
+            return redirect()->route('familles');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withInput()->withErrors($e->errors());
+        }
+    }
+    public function destroy(Famille $famille) {
+        $famille->delete();
+        return redirect()->route('familles');
     }
 }

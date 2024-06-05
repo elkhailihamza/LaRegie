@@ -18,6 +18,6 @@ class Famille extends Model
     }
     protected $fillable = [
         'famille_nom',
-        'group_id'
+        'groupe_id'
     ];
 }
