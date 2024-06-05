@@ -14,7 +14,7 @@
         <span class="font-medium text-xl">Found: {{$articles->total()}}</span>
     </div>
     @if(Auth::user()->profile_id != 1)
-    <a href="{{route("articleCreate")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Create</a>
+    <a href="{{route("articles.create")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Create</a>
     @endif
 </div>
 <ul>

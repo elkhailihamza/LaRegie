@@ -7,7 +7,7 @@
     <h1 class="text-2xl">Créer un groupe</h1>
 </div>
 <div class="px-20 py-12">
-    <form class="grid gap-32 w-full flex justify-center" method="post" action="{{route('groupeSubmit')}}">
+    <form class="grid gap-32 w-full flex justify-center" method="post" action="{{route('groupes.submit')}}">
         @csrf
         @method('post')
         <div class="grid gap-4 w-96">
@@ -34,4 +34,5 @@
         </div>
     </form>
 </div>
+
 @stop

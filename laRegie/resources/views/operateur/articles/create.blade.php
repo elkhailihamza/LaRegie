@@ -7,7 +7,7 @@
     <h1 class="text-2xl">Créer un Article</h1>
 </div>
 <div class="px-20 py-12">
-    <form class="grid gap-32 w-full flex justify-center" method="post" action="{{route('articleSubmit')}}">
+    <form class="grid gap-32 w-full flex justify-center" method="post" action="{{route('articles.submit')}}">
         @csrf
         @method('post')
         <div class="grid gap-4 w-96">

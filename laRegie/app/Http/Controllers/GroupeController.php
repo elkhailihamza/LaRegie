@@ -9,17 +9,17 @@ use Illuminate\Validation\ValidationException;
 
 class GroupeController extends Controller
 {
-    public function groupePage()
+    public function index()
     {
-        $groupes = Groupe::paginate(4);
+        $groupes = Groupe::paginate(5);
         return view('groupes', compact('groupes'));
     }
-    public function groupeCreationPage()
+    public function create()
     {
         $metiers = Metier::get();
-        return view('groupeCreation', compact('metiers'));
+        return view('operateur.groupes.create', compact('metiers'));
     }
-    public function create(Request $request)
+    public function submit(Request $request)
     {
         try {
             $request->validate([
@@ -34,5 +34,8 @@ class GroupeController extends Controller
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors());
         }
+    }
+    public function edit(Groupe $groupe) {
+        return view('');
     }
 }

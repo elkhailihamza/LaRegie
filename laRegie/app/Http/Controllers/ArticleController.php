@@ -9,17 +9,17 @@ use Illuminate\Validation\ValidationException;
 
 class ArticleController extends Controller
 {
-    public function ArticlePage()
+    public function index()
     {
         $articles = Article::paginate(4);
         return view('Articles', compact('articles'));
     }
-    public function ArticleCreationPage()
+    public function create()
     {
         $familles = Famille::select('id', 'famille_nom')->get();
         return view('articlesCreation', compact('familles'));
     }
-    public function create(Request $request)
+    public function submit(Request $request)
     {
         try {
             $request->validate([
