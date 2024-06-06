@@ -1,4 +1,4 @@
-<aside class="fixed h-screen border-r shadow-sm top-0 left-0 z-40 w-60 mt-28 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside class="fixed h-screen border-r shadow-sm top-0 left-0 w-60 mt-[97.5px] transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
         <ul class="space-y-2 font-medium">
             <li>
