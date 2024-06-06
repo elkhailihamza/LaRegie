@@ -24,6 +24,8 @@ Route::post('/login/submit', [AuthController::class, 'login'])->name("loginSubmi
 
 Route::middleware("auth")->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name("index");
+    Route::get('/profile', [HomeController::class, 'profile'])->name("profile");
+    Route::put('/profile/update', [HomeController::class, 'update'])->name("profile.update");
     Route::get('/groupes', [GroupeController::class, 'index'])->name("groupes");
     Route::get('/familles', [FamilleController::class, 'index'])->name("familles");
     Route::get('/articles', [ArticleController::class, 'index'])->name("articles");

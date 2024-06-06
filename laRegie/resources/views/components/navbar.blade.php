@@ -3,10 +3,8 @@
         <a href="{{route('index')}}">
             @include('svg.larad')
         </a>
-        <form action="{{route('logout')}}" method="post">
-            @csrf
-            @method('post')
-            <button type="submit" class="text-white bg-red-600 rounded px-4 py-2">Sign-out</button>
-        </form>
+        <div>
+            @include('components.dropdown')
+        </div>
     </div>
 </nav>
