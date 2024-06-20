@@ -16,6 +16,6 @@ class Article extends Model
     ];
     public function segment()
     {
-        return $this->belongsTo(segment::class);
+        return $this->belongsTo(Segment::class);
     }
 }

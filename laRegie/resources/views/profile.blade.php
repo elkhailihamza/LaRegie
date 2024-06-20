@@ -18,7 +18,7 @@
 
     <div class="px-16">
         <h2 class="text-slate-300">Info</h2>
-        <h2 class="text-xl font-medium">Changer les info</h2>
+        <h2 class="text-xl font-medium">Changer les informations</h2>
     </div>
 
     <main class="flex flex-col gap-4 justify-center items-center">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="mt-3 text-center">
-                    <button type="submit" class="bg-green-700 px-4 py-2 rounded-md text-white">Update</button>
+                    <button type="submit" class="bg-green-600 px-4 py-2 rounded-md text-white">Mise à jour</button>
                 </div>
             </form>
         </div>

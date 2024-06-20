@@ -27,17 +27,11 @@
                     <tbody>
                         @foreach ($familles as $i => $famille)
                         <tr class="bg-white border-b hover:bg-gray-100 transition-all">
-                            <td class="px-6 py-4">
-                                {{$i + 1}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ucfirst($famille->famille_nom)}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{$famille->created_at->diffForHumans()}}
-                            </td>
+                            <td class="px-6 py-4">{{$i + 1}}</td>
+                            <td class="px-6 py-4">{{ucfirst($famille->famille_nom)}}</td>
+                            <td class="px-6 py-4">{{$famille->created_at->diffForHumans()}}</td>
                             <td class="px-6 py-4 flex justify-center">
-                                <input type="checkbox" name="familles[]" value="{{$famille->id}}">
+                                <input type="radio" name="famille" value="{{$famille->id}}" {{ isset($selectedArticle) && $selectedArticle->segment->famille->id == $famille->id ? 'checked' : '' }}>
                             </td>
                         </tr>
                         @endforeach
@@ -45,7 +39,7 @@
                 </table>
             </div>
             <div class="flex justify-center items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                <button type="submit" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">Create</button>
+                <button type="submit" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">Créer</button>
             </div>
         </div>
     </div>

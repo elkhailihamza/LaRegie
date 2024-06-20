@@ -4,7 +4,7 @@
 
 <div class="px-16 pt-12">
     <h2 class="text-slate-300">Register</h2>
-    <h2 class="text-xl font-medium">Enregistrer un nouvel utilisateur</h2>
+    <h2 class="text-xl font-medium">Mise à jour du compte "{{$user->nom.' '.$user->prenom}}"</h2>
 </div>
 
 <main class="flex flex-col gap-4 justify-center items-center">
@@ -58,7 +58,7 @@
                 @endif
             </div>
             <div class="mt-3 text-center">
-                <button type="submit" class="bg-green-600 px-4 py-2 rounded-md text-white">Update</button>
+                <button type="submit" class="bg-green-600 px-4 py-2 rounded-md text-white">Mise à jour</button>
             </div>
         </form>
     </div>

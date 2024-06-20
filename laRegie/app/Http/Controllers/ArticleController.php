@@ -27,54 +27,49 @@ class ArticleController extends Controller
             $request->validate([
                 'article_nom' => 'required|max:255|unique:articles,Article_nom',
                 'description' => 'required|string',
-                'familles' => 'required|array',
-                'familles.*' => 'required|numeric',
+                'famille' => 'required',
             ]);
+            $famille = Famille::findOrFail($request->input('famille'));
             DB::beginTransaction();
-            foreach ($request->input('familles') as $famille_id) {
-                $segment = Segment::create([
-                    'famille_id' => $famille_id,
-                ]);
-                Article::create([
-                    'article_nom' => $request->input('article_nom'),
-                    'description' => $request->input('description'),
-                    'segment_id' => $segment->id,
-                ]);
-            }
+            $segment = Segment::create([
+                'famille_id' => $famille->id,
+            ]);
+            Article::create([
+                'article_nom' => $request->input('article_nom'),
+                'description' => $request->input('description'),
+                'segment_id' => $segment->id,
+            ]);
             DB::commit();
             return redirect()->route('articles');
         } catch (ValidationException $e) {
             DB::rollBack();
-            return redirect()->back()->withErrors($e->errors());
+            return redirect()->back()->withInput()->withErrors($e->errors());
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
     }
     public function edit(Article $article)
     {
         $familles = Famille::get();
-        return view('operateur.articles.edit', compact('article', 'familles'));
+        $selectedArticle = Article::findOrFail($article->id);
+        return view('operateur.articles.edit', compact('selectedArticle', 'familles'));
     }
     public function update(Request $request, Article $article)
     {
         try {
             $request->validate([
-                'groupe_nom' => 'max:255',
-                'metier' => 'numeric',
+                'article_nom' => 'required|max:255',
+                'description' => 'required|string',
+                'famille' => 'required',
             ]);
 
+            $famille = Famille::findOrFail($request->input('famille'));
+
             DB::beginTransaction();
-            $article->segments()->delete();
-
-            foreach ($request->input('familles') as $famille_id) {
-                $segment = Segment::create([
-                    'famille_id' => $famille_id,
-                ]);
-
-                $article->segments()->save($segment);
-            }
-
+            $article->segment->update([
+                'famille_id' => $famille->id,
+            ]);
             $article->update([
                 'article_nom' => $request->input('article_nom'),
                 'description' => $request->input('description'),

@@ -4,7 +4,7 @@
 
 <div class="px-20 py-10 select-none">
     <h2 class="text-slate-300">Groupe Edit</h2>
-    <h1 class="text-2xl">Edit le groupe "{{$groupe->groupe_nom}}"</h1>
+    <h1 class="text-2xl">Modifier le groupe "{{$groupe->groupe_nom}}"</h1>
 </div>
 <div class="px-20 py-12">
     <form class="grid gap-32 w-full flex justify-center" method="post" action="{{route('groupes.update', $groupe->id)}}">
@@ -30,7 +30,7 @@
             @endif
         </div>
         <div class="fixed bottom-20 right-28">
-            <button type="submit" class="px-6 py-2 bg-green-700 rounded text-white">Update</button>
+            <button type="submit" class="px-6 py-2 bg-green-700 rounded text-white">Mise à jour</button>
         </div>
     </form>
 </div>

@@ -18,7 +18,7 @@
         <span class="font-medium text-xl">Found: {{$familles->count()}}</span>
     </div>
     @if(Auth::user()->profile_id != 1)
-    <a href="{{route("familles.create")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Create</a>
+    <a href="{{route("familles.create")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Créer</a>
     @endif
 </div>
 <ul>

@@ -30,7 +30,7 @@
             @endif
         </div>
         <div class="fixed bottom-20 right-28">
-            <button type="submit" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Create</button>
+            <button type="submit" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Créer</button>
         </div>
     </form>
 </div>
