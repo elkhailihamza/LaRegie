@@ -19,6 +19,7 @@ class VerifyHigherAuth
         if (Auth::user()->profile_id == 2 || Auth::user()->profile_id == 3) {
             return $next($request);
         }
-        return redirect()->back();
+        return abort(403);
+
     }
 }

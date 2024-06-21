@@ -16,6 +16,10 @@ class ArticleController extends Controller
         $articles = Article::paginate(5);
         return view('articles', compact('articles'));
     }
+    public function view(Article $article) {
+        $article = Article::findOrFail($article->id);
+        return view('article', compact('article'));
+    }
     public function create()
     {
         $familles = Famille::get();

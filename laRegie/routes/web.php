@@ -29,6 +29,7 @@ Route::middleware("auth")->group(function () {
     Route::get('/groupes', [GroupeController::class, 'index'])->name("groupes");
     Route::get('/familles', [FamilleController::class, 'index'])->name("familles");
     Route::get('/articles', [ArticleController::class, 'index'])->name("articles");
+    Route::get('/articles/{article}/view', [ArticleController::class, 'view'])->name("article.view");
     Route::middleware('higher')->group(function () {
         Route::controller(GroupeController::class)->group(function () {
             Route::get('/groupes/create', 'create')->name("groupes.create");

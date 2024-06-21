@@ -17,7 +17,7 @@ class VerifyOperateurAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->profile_id != 2) {
-            return redirect()->back();
+            return abort(403);
         }
         return $next($request);
     }

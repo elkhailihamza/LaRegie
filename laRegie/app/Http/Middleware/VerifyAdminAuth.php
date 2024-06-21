@@ -17,7 +17,8 @@ class VerifyAdminAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->profile_id != 3) {
-            return redirect()->back();
+            return abort(403);
+
         }
         return $next($request);
     }

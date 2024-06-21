@@ -13,9 +13,9 @@
         </div>
         <span class="font-medium text-xl">Found: {{$articles->count()}}</span>
     </div>
-    @if(Auth::user()->profile_id != 1)
+    @can('view', auth()->user())
     <a href="{{route("articles.create")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Créer</a>
-    @endif
+    @endcan
 </div>
 <ul>
     @if ($articles->isEmpty())
@@ -46,6 +46,10 @@
                 <tbody>
                     @foreach ($articles as $i => $article)
                     <tr class="bg-white border-b hover:bg-gray-100 transition-all">
+                        <div>
+
+                        </div>
+
                         <td class="px-6 py-4">
                             {{$i + 1}}
                         </td>
@@ -59,6 +63,14 @@
                             {{$article->created_at->diffForHumans()}}
                         </td>
                         <td class="px-6 py-4 flex justify-around">
+                            <a href="{{route('article.view', $article->id)}}" class="bg-blue-600 p-[5px] rounded-md" target="_blank">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8" />
+                                    </g>
+                                </svg>
+                            </a>
+                            @can('view', auth()->user())
                             <a href="{{route('articles.edit', $article)}}" class="bg-green-600 p-[5px] rounded-md">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
@@ -74,6 +86,7 @@
                                         <line x1="12" y1="9" x2="18" y2="15"></line>
                                     </svg></button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

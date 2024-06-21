@@ -42,9 +42,11 @@
                         <th scope="col" class="px-6 py-3">
                             Created at
                         </th>
+                        @can('view', auth()->user())
                         <th scope="col" class="px-6 py-3">
                             Controls
                         </th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -62,6 +64,7 @@
                         <td class="px-6 py-4">
                             {{$famille->created_at->diffForHumans()}}
                         </td>
+                        @can('view', auth()->user())
                         <td class="px-6 py-4 flex justify-around">
                             <a href="{{route('familles.edit', $famille->id)}}" class="bg-green-600 p-[5px] rounded-md">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -79,6 +82,7 @@
                                     </svg></button>
                             </form>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>
