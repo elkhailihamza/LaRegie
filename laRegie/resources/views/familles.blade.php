@@ -17,9 +17,9 @@
         </div>
         <span class="font-medium text-xl">Found: {{$familles->count()}}</span>
     </div>
-    @if(Auth::user()->profile_id != 1)
+    @can('HigherAuthView', auth()->user())
     <a href="{{route("familles.create")}}" class="px-6 py-2 bg-[#1D4ED8] rounded text-white">Créer</a>
-    @endif
+    @endcan
 </div>
 <ul>
     @if ($familles->isEmpty())
@@ -40,9 +40,12 @@
                             Groupe
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Metier
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Created at
                         </th>
-                        @can('view', auth()->user())
+                        @can('HigherAuthView', auth()->user())
                         <th scope="col" class="px-6 py-3">
                             Controls
                         </th>
@@ -51,6 +54,7 @@
                 </thead>
                 <tbody>
                     @foreach ($familles as $i => $famille)
+                    @can('UserMetier', $famille->groupe->metier)
                     <tr class="bg-white border-b hover:bg-gray-100 transition-all">
                         <td class="px-6 py-4">
                             {{$i + 1}}
@@ -62,9 +66,12 @@
                             {{ucfirst($famille->groupe->groupe_nom)}}
                         </td>
                         <td class="px-6 py-4">
+                            {{ucfirst($famille->groupe->metier->metier_nom)}}
+                        </td>
+                        <td class="px-6 py-4">
                             {{$famille->created_at->diffForHumans()}}
                         </td>
-                        @can('view', auth()->user())
+                        @can('HigherAuthView', auth()->user())
                         <td class="px-6 py-4 flex justify-around">
                             <a href="{{route('familles.edit', $famille->id)}}" class="bg-green-600 p-[5px] rounded-md">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -84,6 +91,7 @@
                         </td>
                         @endcan
                     </tr>
+                    @endcan
                     @endforeach
                 </tbody>
             </table>

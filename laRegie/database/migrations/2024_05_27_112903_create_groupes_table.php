@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('groupes', function (Blueprint $table) {
             $table->id();
             $table->string("groupe_nom");
-            $table->foreignId("metier_id")->constrained("metiers");
+            $table->foreignId("metier_id")->nullable()->constrained("metiers")->onDelete('set null');
             $table->timestamps();
         });
     }

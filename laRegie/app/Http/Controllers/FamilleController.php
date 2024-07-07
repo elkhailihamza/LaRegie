@@ -23,7 +23,7 @@ class FamilleController extends Controller
     {
         try {
             $request->validate([
-                'famille_nom' => 'required|max:255|unique:groupes,groupe_nom',
+                'famille_nom' => 'required|max:255|unique:familles,famille_nom',
                 'groupe' => 'required|numeric'
             ]);
             Famille::create([
@@ -44,7 +44,7 @@ class FamilleController extends Controller
     {
         try {
             $request->validate([
-                'famille_nom' => 'max:255|unique:groupes,groupe_nom',
+                'famille_nom' => 'max:255|unique:familles,famille_nom',
                 'groupe' => 'numeric'
             ]);
 

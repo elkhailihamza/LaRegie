@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("article_nom");
             $table->text("description");
-            $table->foreignId("segment_id")->constrained("segments");
+            $table->foreignId("segment_id")->nullable()->constrained("segments")->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Home</span>
                 </a>
             </li>
-            @if (Auth::user() && Auth::user()->profile_id == 3)
+            @can('AdminView', auth()->user())
             <li>
                 <a href="{{route('users.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -22,7 +22,7 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
                 </a>
             </li>
-            @endif
+            @endcan
             <li>
                 <a href="{{route('groupes')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -42,6 +42,14 @@
                         <line x1="3" y1="18" x2="3.01" y2="18"></line>
                     </svg>
                     <span class="flex-1 ms-3 whitespace-nowrap">Familles</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('segments')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                    </svg>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Segments</span>
                 </a>
             </li>
             <li>

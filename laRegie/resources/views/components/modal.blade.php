@@ -14,7 +14,7 @@
                                 #
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Nom
+                                Libelle
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Created at
@@ -25,13 +25,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($familles as $i => $famille)
+                        @foreach ($segments as $i => $segment)
                         <tr class="bg-white border-b hover:bg-gray-100 transition-all">
                             <td class="px-6 py-4">{{$i + 1}}</td>
-                            <td class="px-6 py-4">{{ucfirst($famille->famille_nom)}}</td>
-                            <td class="px-6 py-4">{{$famille->created_at->diffForHumans()}}</td>
+                            <td class="px-6 py-4">{{ucfirst($segment->libelle)}}</td>
+                            <td class="px-6 py-4">{{$segment->created_at->diffForHumans()}}</td>
                             <td class="px-6 py-4 flex justify-center">
-                                <input type="radio" name="famille" value="{{$famille->id}}" {{ isset($selectedArticle) && $selectedArticle->segment->famille->id == $famille->id ? 'checked' : '' }}>
+                                <input type="radio" name="segment" value="{{$segment->id}}" {{ isset($selectedArticle) && $selectedArticle->segment->id == $segment->id ? 'checked' : '' }}>
                             </td>
                         </tr>
                         @endforeach

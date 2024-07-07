@@ -9,6 +9,7 @@ class Segment extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'libelle',
         'famille_id',
     ];
     public function famille() {

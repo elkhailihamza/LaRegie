@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/login', [AuthController::class, 'loginPage'])->name("login");
+Route::get('/', [AuthController::class, 'loginPage'])->name("login");
 Route::post('/login/submit', [AuthController::class, 'login'])->name("loginSubmit");
 
 Route::middleware("auth")->group(function () {
@@ -28,7 +30,9 @@ Route::middleware("auth")->group(function () {
     Route::put('/profile/update', [HomeController::class, 'update'])->name("profile.update");
     Route::get('/groupes', [GroupeController::class, 'index'])->name("groupes");
     Route::get('/familles', [FamilleController::class, 'index'])->name("familles");
+    Route::get('/segments', [SegmentController::class, 'index'])->name("segments");
     Route::get('/articles', [ArticleController::class, 'index'])->name("articles");
+    Route::get('/articles/search', [ArticleController::class, 'search']);
     Route::get('/articles/{article}/view', [ArticleController::class, 'view'])->name("article.view");
     Route::middleware('higher')->group(function () {
         Route::controller(GroupeController::class)->group(function () {
@@ -44,6 +48,13 @@ Route::middleware("auth")->group(function () {
             Route::get('/familles/{famille}/edit', 'edit')->name("familles.edit");
             Route::put('/familles/{famille}/update', 'update')->name("familles.update");
             Route::delete('/familles/{famille}', 'destroy')->name("familles.destroy");
+        });
+        Route::controller(SegmentController::class)->group(function () {
+            Route::get('/segments/create', 'create')->name("segments.create");
+            Route::post('/segments/submit', 'submit')->name("segments.submit");
+            Route::get('/segments/{segment}/edit', 'edit')->name("segments.edit");
+            Route::put('/segments/{segment}/update', 'update')->name("segments.update");
+            Route::delete('/segments/{segment}', 'destroy')->name("segments.destroy");
         });
         Route::controller(ArticleController::class)->group(function () {
             Route::get('/articles/create', 'create')->name("articles.create");

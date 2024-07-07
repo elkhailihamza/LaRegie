@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('segments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("famille_id")->constrained("familles");
+            $table->string("libelle");
+            $table->foreignId("famille_id")->nullable()->constrained("familles")->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ArticleController extends Controller
 {
     public function index()
@@ -16,48 +18,41 @@ class ArticleController extends Controller
         $articles = Article::paginate(5);
         return view('articles', compact('articles'));
     }
-    public function view(Article $article) {
+    public function view(Article $article)
+    {
         $article = Article::findOrFail($article->id);
         return view('article', compact('article'));
     }
     public function create()
     {
-        $familles = Famille::get();
-        return view('operateur.articles.create', compact('familles'));
+        $segments = Segment::get();
+        return view('operateur.articles.create', compact('segments'));
     }
     public function submit(Request $request)
     {
         try {
             $request->validate([
-                'article_nom' => 'required|max:255|unique:articles,Article_nom',
+                'article_nom' => 'required|max:255|unique:articles,article_nom',
                 'description' => 'required|string',
-                'famille' => 'required',
+                'segment' => 'required',
             ]);
-            $famille = Famille::findOrFail($request->input('famille'));
-            DB::beginTransaction();
-            $segment = Segment::create([
-                'famille_id' => $famille->id,
-            ]);
+            $segment = Famille::findOrFail($request->input('segment'));
+
             Article::create([
                 'article_nom' => $request->input('article_nom'),
                 'description' => $request->input('description'),
                 'segment_id' => $segment->id,
             ]);
-            DB::commit();
             return redirect()->route('articles');
         } catch (ValidationException $e) {
-            DB::rollBack();
             return redirect()->back()->withInput()->withErrors($e->errors());
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
     }
     public function edit(Article $article)
     {
-        $familles = Famille::get();
+        $segments = Segment::get();
         $selectedArticle = Article::findOrFail($article->id);
-        return view('operateur.articles.edit', compact('selectedArticle', 'familles'));
+        return view('operateur.articles.edit', compact('selectedArticle', 'segments'));
     }
     public function update(Request $request, Article $article)
     {
@@ -65,32 +60,39 @@ class ArticleController extends Controller
             $request->validate([
                 'article_nom' => 'required|max:255',
                 'description' => 'required|string',
-                'famille' => 'required',
+                'segment' => 'required',
             ]);
 
-            $famille = Famille::findOrFail($request->input('famille'));
-
-            DB::beginTransaction();
-            $article->segment->update([
-                'famille_id' => $famille->id,
-            ]);
+            $segment = Famille::findOrFail($request->input('segment'));
             $article->update([
                 'article_nom' => $request->input('article_nom'),
                 'description' => $request->input('description'),
+                'segment' => $segment->id,
             ]);
-            DB::commit();
             return redirect()->route('articles');
         } catch (ValidationException $e) {
-            DB::rollBack();
             return redirect()->back()->withErrors($e->errors());
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', $e->getMessage());
         }
     }
     public function destroy(Article $article)
     {
         $article->delete();
         return redirect()->route('articles');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        if (!isset($query)) {
+            $articles = Article::paginate(6);
+        } else {
+            $articles = Article::where('article_nom', 'like', '%' . $query . '%')
+                ->paginate(6);
+        }
+        $count = count($articles);
+        return response()->json([
+            'view' => view('components.search', compact('articles'))->render(),
+            'count' => $count,
+        ], 201);
     }
 }
