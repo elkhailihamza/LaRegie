@@ -13,6 +13,13 @@
         <div class="grid gap-4 w-96">
             <input name="article_nom" autocomplete="off" type="text" max="255" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" placeholder="Article Nom">
             <textarea name="description" class="w-full resize-none h-40 transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded" max="255" placeholder="Article Description"></textarea>
+            <select name="segment" class="w-full transition-all border border-gray-300 p-2.5 outline-none focus:shadow-sm hover:border-slate-400 focus:border-slate-600 rounded">
+                @foreach ($segments as $segment)
+                <option name="segment" value="{{$segment->id}}" {{ $selectedArticle->segment->id == $segment->id ? 'selected' : '' }}>
+                    {{$segment->id .'. '. ucfirst($segment->libelle)}}
+                </option>
+                @endforeach
+            </select>
             @if ($errors->has('article_nom') || $errors->has('description') || $errors->has('famille'))
             <div class="grid bg-red-600 w-full text-white p-2 select-none">
                 @if ($errors->has('article_nom'))
@@ -28,7 +35,7 @@
             @endif
         </div>
         <div class="fixed flex justify-between bottom-20 right-28">
-            @include('components.modal')
+            <button type="submit" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Créer</button>
         </div>
     </form>
     @if(session('error'))

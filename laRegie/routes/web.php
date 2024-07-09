@@ -31,9 +31,13 @@ Route::middleware("auth")->group(function () {
     Route::get('/groupes', [GroupeController::class, 'index'])->name("groupes");
     Route::get('/familles', [FamilleController::class, 'index'])->name("familles");
     Route::get('/segments', [SegmentController::class, 'index'])->name("segments");
-    Route::get('/articles', [ArticleController::class, 'index'])->name("articles");
-    Route::get('/articles/search', [ArticleController::class, 'search']);
-    Route::get('/articles/{article}/view', [ArticleController::class, 'view'])->name("article.view");
+    Route::controller(ArticleController::class)->group(function() {
+        Route::get('/articles', 'index')->name("articles");
+        Route::get('/articles/search', 'search');
+        Route::get('/articles/{article}/view', 'view')->name("article.view");
+        Route::get('/articles/export', 'export')->name('articles.export.excel');
+        Route::get('/articles/{article}.pdf', 'ViewPDF')->name('articles.export.pdf');
+    });
     Route::middleware('higher')->group(function () {
         Route::controller(GroupeController::class)->group(function () {
             Route::get('/groupes/create', 'create')->name("groupes.create");

@@ -24,7 +24,7 @@ class FamilleController extends Controller
         try {
             $request->validate([
                 'famille_nom' => 'required|max:255|unique:familles,famille_nom',
-                'groupe' => 'required|numeric'
+                'groupe' => 'required|exists:groupes,id'
             ]);
             Famille::create([
                 'famille_nom' => $request->input('famille_nom'),
@@ -44,8 +44,8 @@ class FamilleController extends Controller
     {
         try {
             $request->validate([
-                'famille_nom' => 'max:255|unique:familles,famille_nom',
-                'groupe' => 'numeric'
+                'famille_nom' => 'max:255',
+                'groupe' => 'required|exists:groupes,id'
             ]);
 
             $famille->update([

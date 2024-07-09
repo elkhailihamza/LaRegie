@@ -22,7 +22,8 @@ class userPolicy
     {
         return $user->profile_id >= 2;
     }
-    public function UserMetier(User $user, Metier $metier) {
+    public function UserMetier(User $user, Metier $metier)
+    {
         return $user->metier->metier_nom == $metier->metier_nom;
     }
 }

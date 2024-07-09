@@ -25,7 +25,7 @@ class SegmentController extends Controller
         try {
             $request->validate([
                 'libelle' => 'required|max:255|unique:segments,libelle',
-                'famille' => 'required|numeric'
+                'famille' => 'required|exists:familles,id'
             ]);
             Segment::create([
                 'libelle' => $request->input('libelle'),
@@ -46,7 +46,7 @@ class SegmentController extends Controller
         try {
             $request->validate([
                 'libelle' => 'max:255',
-                'famille' => 'numeric'
+                'famille' => 'required|exists:familles,id'
             ]);
 
             $segment->update([

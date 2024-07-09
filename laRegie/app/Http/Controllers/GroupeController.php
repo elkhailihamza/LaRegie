@@ -24,7 +24,7 @@ class GroupeController extends Controller
         try {
             $request->validate([
                 'groupe_nom' => 'required|max:255',
-                'metier' => 'required|numeric'
+                'metier' => 'required|exists:metiers,id'
             ]);
             Groupe::create([
                 'groupe_nom' => $request->input('groupe_nom'),
@@ -45,7 +45,7 @@ class GroupeController extends Controller
         try {
             $request->validate([
                 'groupe_nom' => 'max:255',
-                'metier' => 'numeric',
+                'metier' => 'required|exists:metiers,id',
             ]);
 
             $groupe->update([

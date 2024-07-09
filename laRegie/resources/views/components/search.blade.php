@@ -5,7 +5,7 @@
     </h1>
 </div>
 @else
-<div class="flex flex-col justify-between py-4 px-20 gap-2" id="search_results">
+<div class="flex flex-col justify-between gap-2" id="search_results">
     <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 border">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 border">
@@ -15,6 +15,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Nom
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Segment
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Famille
@@ -35,6 +38,7 @@
             </thead>
             <tbody>
                 @foreach ($articles as $i => $article)
+                @if ($article->segment)
                 @can('UserMetier', $article->segment->famille->groupe->metier)
                 <tr class="bg-white border-b hover:bg-gray-100 transition-all">
                     <td class="px-6 py-4">
@@ -42,6 +46,9 @@
                     </td>
                     <td class="px-6 py-4">
                         {{$article->article_nom}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{$article->segment->libelle}}
                     </td>
                     <td class="px-6 py-4">
                         {{$article->segment->famille->famille_nom}}
@@ -83,9 +90,17 @@
                     </td>
                 </tr>
                 @endcan
+                @endif
                 @endforeach
             </tbody>
         </table>
+        <div class="p-4">
+            <form action="{{route('articles.export.excel')}}" method="GET" target="__blank">
+                @csrf
+                @method('get')
+                <button type="submit" class="bg-blue-700 p-2 text-white rounded-md">Exporter vers Excel</button>
+            </form>
+        </div>
     </div>
     <div class="flex justify-end">
         {{ $articles->links() }}

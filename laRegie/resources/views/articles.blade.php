@@ -22,7 +22,14 @@
     <li class="text-center text-slate-300 font-medium text-2xl">Empty</li>
     @else
     <div class="flex justify-center items-center gap-5">
-        <input type="search" placeholder="Recherche" autocomplete="off" class="border border-black rounded-sm shadow p-2 outline-none w-96" id="search_input">
+        <input type="search" placeholder="Rechercher par Nom" autocomplete="off" class="border border-black rounded-sm shadow p-2 outline-none w-96" id="search_input">
+        <select id="search_type" class="border border-black rounded-sm shadow p-2 outline-none">
+            <option selected disabled hidden>Type</option>
+            <option>Articles</option>
+            <option value="1">Groupes</option>
+            <option value="2">Familles</option>
+            <option value="3">Segments</option>
+        </select>
         <div id="loader" class="hidden top-0 left-0 flex justify-center items-center">
             <img src="{{ asset('assets/loader.gif') }}" alt="Loading..." class="w-10 h-10" />
         </div>
@@ -43,6 +50,9 @@
                             Nom
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Segment
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Famille
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -52,7 +62,7 @@
                             Metier
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Created at
+                            Créé à
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Controls
@@ -61,6 +71,7 @@
                 </thead>
                 <tbody>
                     @foreach ($articles as $i => $article)
+                    @if ($article->segment)
                     @can('UserMetier', $article->segment->famille->groupe->metier)
                     <tr class="bg-white border-b hover:bg-gray-100 transition-all">
                         <td class="px-6 py-4">
@@ -68,6 +79,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{$article->article_nom}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{$article->segment->libelle}}
                         </td>
                         <td class="px-6 py-4">
                             {{$article->segment->famille->famille_nom}}
@@ -79,7 +93,7 @@
                             {{$article->segment->famille->groupe->metier->metier_nom}}
                         </td>
                         <td class="px-6 py-4">
-                            {{$article->created_at->diffForHumans()}}
+                            {{$article->created_at->locale('fr')->diffForHumans()}}
                         </td>
                         <td class="px-6 py-4 flex justify-around">
                             <a href="{{route('article.view', $article->id)}}" class="bg-blue-600 p-[5px] rounded-md" target="_blank">
@@ -87,6 +101,12 @@
                                     <g fill="none" fill-rule="evenodd">
                                         <path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8" />
                                     </g>
+                                </svg>
+                            </a>
+                            <a type="submit" target="__blank" href="{{route('articles.export.pdf', $article->id)}}" class="bg-yellow-600 p-[5px] rounded-md">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                                    <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" />
                                 </svg>
                             </a>
                             @can('HigherAuthView', auth()->user())
@@ -109,11 +129,19 @@
                         </td>
                     </tr>
                     @endcan
+                    @endif
                     @endforeach
                 </tbody>
             </table>
+            <div class="p-4">
+                <form action="{{route('articles.export.excel')}}" method="GET" target="__blank">
+                    @csrf
+                    @method('get')
+                    <button type="submit" class="bg-blue-700 p-2 text-white rounded-md">Exporter vers Excel</button>
+                </form>
+            </div>
         </div>
-        <div class="flex justify-end">
+        <div class="flex justify-between p-4">
             {{ $articles->links() }}
         </div>
     </div>
